@@ -10,10 +10,12 @@ router.route("/products").get(getAllProducts);
 
 
 // Securing all admin resources for users.
-router.route("/products/new").post(isAuthenticatedUser,authorizeRoles("admin"), createProduct);
+router.route("/admin/products/new").post(isAuthenticatedUser,authorizeRoles("admin"), createProduct);
 
 // Securing all admin resources for users.
-router.route("/products/:id").put(isAuthenticatedUser,authorizeRoles("admin"), updateProduct).delete(isAuthenticatedUser,authorizeRoles("admin"), deleteProduct).get(getProductDetails);
+router.route("/admin/products/:id").put(isAuthenticatedUser,authorizeRoles("admin"), updateProduct).delete(isAuthenticatedUser,authorizeRoles("admin"), deleteProduct);
+
+router.route("/products/:id").get(getProductDetails);
 
 
 

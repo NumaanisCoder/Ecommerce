@@ -42,6 +42,9 @@ const userSchema = new mongoose.Schema({
 });
 
 
+
+
+
 //Event Handler(checking the condtion when user click on save or submit button after filling his/her registration details).
 userSchema.pre("save", async function (next) {
 
@@ -54,6 +57,9 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
 });
 
+
+
+
 //JSON-Web-Token(for cookies).
 userSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
@@ -61,10 +67,17 @@ userSchema.methods.getJWTToken = function () {
     });
 };
 
+
+
+
 //Compare password.
 userSchema.methods.comparePassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
+
+
+
+
 
 //creating reset password token
 
@@ -76,9 +89,9 @@ const resetToken = crypto.randomBytes(20).toString("hex");
 this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
-    .digest("hex")
+    .digest("hex");
 
-    this.resetPasswordExpire = Date.now() * 15 * 60 * 1000;
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
     return resetToken;
 
 }
