@@ -223,3 +223,46 @@ exports.getSingleUser = catchAsyncError(async(req,res,next) => {
         users,
     })
 })  
+
+//Update User Role {BY_ADMIN}
+
+exports.updateUserRole = catchAsyncError(async(req,res,next) => {
+    const userNewDetails = {
+        name : req.body.name,
+        email : req.body.email,
+        role: req.body.role
+    };
+
+    const user = await UserModel.findByIdAndUpdate(req.body.params, userNewDetails, {
+        new:true,
+        runValidators:true,
+        useFindAndModify:false,
+    });
+    await user.save();
+
+
+    res.status(200).json({
+        success:true,
+        user,
+    })
+})
+
+//DELETE USER ROLE{ADMIN}
+
+exports.deleteUSER = catchAsyncError(async(req,res,next) => {
+   
+    const user = await UserModel.findByIdAndUpdate(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`User does not EXIST ${req.params.id} `))
+    }
+
+    await user.remove();
+   
+
+
+    res.status(200).json({
+        success:true,
+        user,
+    })
+})
