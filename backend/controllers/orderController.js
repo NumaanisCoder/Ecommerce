@@ -1,7 +1,7 @@
-const Order = require("../models/orderModel");
+const Order = require("../models/ordelMODEL");
 const Product = require("../models/productModel");
-const ErrorHander = require("../utils/errorhander");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ErrorHander = require("../utils/errorhandler");
+const catchAsyncErrors = require("../middleware/catchAsyncError");
 
 // Creating.. new Order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
